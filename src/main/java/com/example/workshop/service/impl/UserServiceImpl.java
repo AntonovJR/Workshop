@@ -38,15 +38,23 @@ public class UserServiceImpl implements UserService {
             System.out.println("----------------");
             return;
         }
-        User user = userRepository.findAllByUsernameAndPassword(userLoginDto.getUsername(),
-                userLoginDto.getPassword())
-                .orElse(null);
+        User user = userRepository.findByUsername(userLoginDto.getUsername());
         if (user == null) {
             System.out.println("----------------");
-            System.out.println("Incorrect username / password");
+            System.out.println("Username not found");
             System.out.println("----------------");
             return;
         }
+        user = userRepository.findAllByUsernameAndPassword(userLoginDto.getUsername(),userLoginDto.getPassword())
+                .orElse(null);
+        if (user == null) {
+            System.out.println("----------------");
+            System.out.println("Wrong password");
+            System.out.println("----------------");
+            return;
+        }
+
+
         loggedUser = user;
         System.out.printf("Successfully logged in %s%n", loggedUser.getUsername());
     }
@@ -71,10 +79,10 @@ public class UserServiceImpl implements UserService {
         }
         User user = modelMapper.map(userRegisterDto, User.class);
         if (checkUsername(user.getUsername()) && checkEmail(user.getEmail())) {
+            userRepository.save(user);
             if (user.getId() == 1L) {
                 user.setRole(Position.valueOf("ADMIN"));
             }
-            userRepository.save(user);
             System.out.printf("%s was registered%n", user.getUsername());
         }
 
@@ -82,7 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkEmail(String email) {
-        if (userRepository.getByEmail(email) != null) {
+        if (userRepository.findByEmail(email) != null) {
             System.out.println("Email is already in use");
             return false;
         }
@@ -90,7 +98,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkUsername(String username) {
-        if (userRepository.getByUsername(username) != null) {
+        if (userRepository.findByUsername(username) != null) {
             System.out.println("Username is already in use");
             return false;
 

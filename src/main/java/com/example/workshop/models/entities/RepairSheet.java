@@ -14,6 +14,10 @@ public class RepairSheet extends BaseEntity {
     private User mechanic;
     @OneToOne
     private Car car;
+    @Column(name = "parts_price")
+    private BigDecimal partsPrice;
+    @Column(name = "labor_costs")
+    private BigDecimal laborCosts;
     @Column(name = "total_price")
     private BigDecimal totalPrice;
     @Column(name = "date_of_arrival")

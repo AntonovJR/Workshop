@@ -39,6 +39,7 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     public void run(String... args) throws Exception {
         while (true) {
             loginOrRegister();
+
         }
     }
 
