@@ -1,15 +1,14 @@
 package com.example.workshop.models.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity(name = "users")
 public class User extends BaseEntity {
+    @Column(name = "full_name")
     @Size(min = 3)
-    private String name;
+    private String fullName;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(unique = true)
@@ -20,16 +19,20 @@ public class User extends BaseEntity {
     @Size(min = 3, max = 30)
     private String username;
     private String password;
+    @Column(name = "discount")
+    private Integer discountPercentage;
+    @OneToMany
+    private Set<Car> car;
 
     public User() {
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhoneNumber() {
@@ -52,8 +55,8 @@ public class User extends BaseEntity {
         return role;
     }
 
-    public void setRole(Position position) {
-        this.role = position;
+    public void setRole(Position role) {
+        this.role = role;
     }
 
     public String getUsername() {
@@ -70,5 +73,21 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(Integer discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public Set<Car> getCar() {
+        return car;
+    }
+
+    public void setCar(Set<Car> car) {
+        this.car = car;
     }
 }

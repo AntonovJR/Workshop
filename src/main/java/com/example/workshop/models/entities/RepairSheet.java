@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Entity(name = "repair_sheets")
 public class RepairSheet extends BaseEntity {
     @OneToOne
-    private Client client;
+    private User client;
     @OneToOne
     private User mechanic;
     @OneToOne
@@ -30,11 +30,11 @@ public class RepairSheet extends BaseEntity {
     public RepairSheet() {
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

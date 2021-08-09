@@ -36,14 +36,13 @@ public class UserServiceImpl implements UserService {
                     .map(ConstraintViolation::getMessage)
                     .forEach(System.out::println);
             System.out.println("----------------");
-            return;
         }
         User user = userRepository.findByUsername(userLoginDto.getUsername());
         if (user == null) {
             System.out.println("----------------");
             System.out.println("Username not found");
             System.out.println("----------------");
-            return;
+
         }
         user = userRepository.findAllByUsernameAndPassword(userLoginDto.getUsername(),userLoginDto.getPassword())
                 .orElse(null);
@@ -51,18 +50,23 @@ public class UserServiceImpl implements UserService {
             System.out.println("----------------");
             System.out.println("Wrong password");
             System.out.println("----------------");
-            return;
+
         }
 
 
         loggedUser = user;
+        System.out.println("----------------");
         System.out.printf("Successfully logged in %s%n", loggedUser.getUsername());
+        System.out.println("----------------");
+
     }
 
     @Override
     public void registerUser(UserRegisterDto userRegisterDto) {
         if (!userRegisterDto.getPassword().equals(userRegisterDto.getConfirmPassword())) {
+            System.out.println("----------------");
             System.out.println("Wrong confirm password");
+            System.out.println("----------------");
             return;
         }
 
@@ -83,15 +87,24 @@ public class UserServiceImpl implements UserService {
             if (user.getId() == 1L) {
                 user.setRole(Position.valueOf("ADMIN"));
             }
+            System.out.println("----------------");
             System.out.printf("%s was registered%n", user.getUsername());
+            System.out.println("----------------");
         }
 
 
     }
 
+    @Override
+    public User getLoggedUser() {
+        return this.loggedUser;
+    }
+
     private boolean checkEmail(String email) {
         if (userRepository.findByEmail(email) != null) {
+            System.out.println("----------------");
             System.out.println("Email is already in use");
+            System.out.println("----------------");
             return false;
         }
         return true;
@@ -99,7 +112,9 @@ public class UserServiceImpl implements UserService {
 
     private boolean checkUsername(String username) {
         if (userRepository.findByUsername(username) != null) {
+            System.out.println("----------------");
             System.out.println("Username is already in use");
+            System.out.println("----------------");
             return false;
 
         }
