@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Set;
 
 @Service
@@ -19,15 +22,22 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final ValidationUtil validationUtil;
     private User loggedUser;
+    private final BufferedReader reader;
 
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, ValidationUtil validationUtil) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.validationUtil = validationUtil;
+        this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     @Override
-    public void loginUser(UserLoginDto userLoginDto) {
+    public void loginUser() throws IOException {
+        System.out.print("Please enter username: ");
+        String username = reader.readLine();
+        System.out.print("Please enter password: ");
+        String password = reader.readLine();
+        UserLoginDto userLoginDto = new UserLoginDto(username,password);
         Set<ConstraintViolation<UserLoginDto>> violation =
                 validationUtil.violation(userLoginDto);
         if (!violation.isEmpty()) {
@@ -63,7 +73,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(UserRegisterDto userRegisterDto) {
+    public void registerUser() throws IOException {
+        System.out.println("Please enter full name: ");
+        String name = reader.readLine();
+        System.out.println("Please enter phone number: ");
+        String phoneNumber = reader.readLine();
+        System.out.println("Please enter email: ");
+        String email = reader.readLine();
+        System.out.println("Please enter username between 3 and 30 symbols: ");
+        String username = reader.readLine();
+        System.out.println("Please enter password at least 6 symbols, must contain at least 1 uppercase, " +
+                "1 lowercase letter and 1 digit: ");
+        String password = reader.readLine();
+        System.out.println("Please confirm password: ");
+        String confirmPassword = reader.readLine();
+        UserRegisterDto userRegisterDto = new UserRegisterDto(name,phoneNumber,email,username,password,confirmPassword);
         if (!userRegisterDto.getPassword().equals(userRegisterDto.getConfirmPassword())) {
             System.out.println("----------------");
             System.out.println("Wrong confirm password");

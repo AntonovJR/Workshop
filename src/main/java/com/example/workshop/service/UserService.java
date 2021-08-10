@@ -1,14 +1,14 @@
 package com.example.workshop.service;
 
-import com.example.workshop.models.dto.UserLoginDto;
-import com.example.workshop.models.dto.UserRegisterDto;
 import com.example.workshop.models.entities.User;
+
+import java.io.IOException;
 
 public interface UserService {
 
-    void loginUser(UserLoginDto userLoginDto);
+    void loginUser() throws IOException;
 
-    void registerUser(UserRegisterDto userRegisterDto);
+    void registerUser() throws IOException;
 
     User getLoggedUser();
 

@@ -1,45 +1,37 @@
-package com.example.workshop.models.entities;
+package com.example.workshop.models.dto;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Set;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
-@Entity(name = "cars")
-public class Car extends BaseEntity {
+
+public class AddCarDto {
+    @Size(min = 2,message = "Enter valid make")
     private String make;
+    @Size(min = 2, message = "Enter valid model")
     private String model;
-    @Column(name = "vin_number")
+    @Size(min = 5, message = "Enter valid VIN number")
     private String vinNumber;
-    @Column(name = "engine_code")
+    @Size(min = 3,message = "Enter valid engine code")
     private String engineCode;
-    @Column(name = "year_of_manufacture")
-    private LocalDate manufactureYear;
-    @Enumerated(EnumType.STRING)
-    private FuelType fuelType;
+    private String manufactureYear;
+    private String fuelType;
+    @Positive
     private Long odometer;
     private String color;
-    @OneToMany(mappedBy = "car")
-    private Set<RepairSheet> repairs;
-    @ManyToOne
-    private User owner;
 
-    public Car() {
+    public AddCarDto() {
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public Set<RepairSheet> getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(Set<RepairSheet> repairs) {
-        this.repairs = repairs;
+    public AddCarDto(String make, String model, String vinNumber, String engineCode, String manufactureYear,
+                     String fuelType, Long odometer, String color) {
+        this.make = make;
+        this.model = model;
+        this.vinNumber = vinNumber;
+        this.engineCode = engineCode;
+        this.manufactureYear = manufactureYear;
+        this.fuelType = fuelType;
+        this.odometer = odometer;
+        this.color = color;
     }
 
     public String getMake() {
@@ -74,19 +66,19 @@ public class Car extends BaseEntity {
         this.engineCode = engineCode;
     }
 
-    public LocalDate getManufactureYear() {
+    public String getManufactureYear() {
         return manufactureYear;
     }
 
-    public void setManufactureYear(LocalDate manufactureYear) {
+    public void setManufactureYear(String manufactureYear) {
         this.manufactureYear = manufactureYear;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 

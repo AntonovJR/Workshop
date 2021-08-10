@@ -1,7 +1,5 @@
 package com.example.workshop;
 
-import com.example.workshop.models.dto.UserLoginDto;
-import com.example.workshop.models.dto.UserRegisterDto;
 import com.example.workshop.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -213,9 +211,8 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         System.out.println("Coming soon");
     }
 
-    private void addCar() {
-        //ToDo
-        System.out.println("Coming soon");
+    private void addCar() throws IOException {
+        carService.addCar();
     }
 
     private void loginOrRegister() throws IOException {
@@ -232,29 +229,11 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     }
 
     private void registerUser() throws IOException {
-        System.out.println("Please enter full name: ");
-        String name = reader.readLine();
-        System.out.println("Please enter phone number: ");
-        String phoneNumber = reader.readLine();
-        System.out.println("Please enter email: ");
-        String email = reader.readLine();
-        System.out.println("Please enter username between 3 and 30 symbols: ");
-        String username = reader.readLine();
-        System.out.println("Please enter password at least 6 symbols, must contain at least 1 uppercase, " +
-                "1 lowercase letter and 1 digit: ");
-        String password = reader.readLine();
-        System.out.println("Please confirm password: ");
-        String confirmPassword = reader.readLine();
-
-        userService.registerUser(new UserRegisterDto(name, phoneNumber, email, username, password, confirmPassword));
+        userService.registerUser();
     }
 
     private void loginUser() throws IOException {
-        System.out.print("Please enter username: ");
-        String username = reader.readLine();
-        System.out.print("Please enter password: ");
-        String password = reader.readLine();
-        userService.loginUser(new UserLoginDto(username, password));
+        userService.loginUser();
 
     }
 

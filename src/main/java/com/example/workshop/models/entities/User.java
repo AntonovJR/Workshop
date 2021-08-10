@@ -21,7 +21,7 @@ public class User extends BaseEntity {
     private String password;
     @Column(name = "discount")
     private Integer discountPercentage;
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private Set<Car> car;
 
     public User() {
