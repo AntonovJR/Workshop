@@ -222,20 +222,9 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         System.out.print("Option: ");
         int chosenOption = Integer.parseInt(reader.readLine());
         switch (chosenOption) {
-            case 1 -> loginUser();
-            case 2 -> registerUser();
+            case 1 -> userService.loginUser();
+            case 2 ->  userService.registerUser();
             default -> System.out.printf("----------------%nPlease enter valid option%n----------------");
         }
     }
-
-    private void registerUser() throws IOException {
-        userService.registerUser();
-    }
-
-    private void loginUser() throws IOException {
-        userService.loginUser();
-
-    }
-
-
 }
