@@ -18,7 +18,7 @@ public class Car extends BaseEntity {
     private FuelType fuelType;
     private Long odometer;
     private String color;
-    @OneToMany
+    @OneToMany(mappedBy = "car")
     private Set<RepairSheet> repairs;
 
     public Car() {

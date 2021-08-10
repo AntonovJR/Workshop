@@ -11,4 +11,6 @@ public interface UserService {
     void registerUser(UserRegisterDto userRegisterDto);
 
     User getLoggedUser();
+
+    void logout();
 }

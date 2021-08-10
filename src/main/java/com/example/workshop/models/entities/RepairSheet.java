@@ -2,6 +2,7 @@ package com.example.workshop.models.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class RepairSheet extends BaseEntity {
     private User client;
     @OneToOne
     private User mechanic;
-    @OneToOne
+    @ManyToOne
     private Car car;
     @Column(name = "parts_price")
     private BigDecimal partsPrice;

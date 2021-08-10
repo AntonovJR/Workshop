@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class UserRegisterDto {
 
     @Size(min = 3, message = "Enter valid name")
-    private String name;
+    private String fullName;
     @NotBlank(message = "Enter valid phone number")
     private String phoneNumber;
     @Email(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
@@ -22,8 +22,9 @@ public class UserRegisterDto {
     private String password;
     private String confirmPassword;
 
-    public UserRegisterDto(String name, String phoneNumber, String email, String username, String password, String confirmPassword) {
-        this.name = name;
+    public UserRegisterDto(String fullName, String phoneNumber, String email, String username, String password,
+                           String confirmPassword) {
+        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.username = username;
@@ -34,12 +35,12 @@ public class UserRegisterDto {
     public UserRegisterDto() {
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhoneNumber() {

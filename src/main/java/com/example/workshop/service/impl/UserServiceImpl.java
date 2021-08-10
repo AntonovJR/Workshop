@@ -42,15 +42,16 @@ public class UserServiceImpl implements UserService {
             System.out.println("----------------");
             System.out.println("Username not found");
             System.out.println("----------------");
+            return;
 
         }
-        user = userRepository.findAllByUsernameAndPassword(userLoginDto.getUsername(),userLoginDto.getPassword())
+        user = userRepository.findAllByUsernameAndPassword(userLoginDto.getUsername(), userLoginDto.getPassword())
                 .orElse(null);
         if (user == null) {
             System.out.println("----------------");
             System.out.println("Wrong password");
             System.out.println("----------------");
-
+            return;
         }
 
 
@@ -86,7 +87,10 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             if (user.getId() == 1L) {
                 user.setRole(Position.valueOf("ADMIN"));
+            }else{
+                user.setRole(Position.valueOf("CLIENT"));
             }
+            userRepository.save(user);
             System.out.println("----------------");
             System.out.printf("%s was registered%n", user.getUsername());
             System.out.println("----------------");
@@ -98,6 +102,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getLoggedUser() {
         return this.loggedUser;
+    }
+
+    @Override
+    public void logout() {
+        this.loggedUser = null;
     }
 
     private boolean checkEmail(String email) {
